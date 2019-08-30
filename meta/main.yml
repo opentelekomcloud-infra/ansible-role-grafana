@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: grafana
   author: Artem Goncharov
   description: Grafana instance in the podman container
   company: OpenTelekomCloud

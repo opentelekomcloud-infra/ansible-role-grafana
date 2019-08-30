@@ -27,7 +27,7 @@
           devices: ['/']
           ignore_growroot_disabled: false
       register: server
-    
+
     - name: Create Data Volume {{ grafana_host_data_volume_name }}
       os_volume:
         state: "{{ grafana_host_state }}"
@@ -38,7 +38,7 @@
         metadata: "{{ grafana_host_data_volume_metadata }}"
       when: grafana_host_data_volume_size is defined
       register: data_volume
-    
+
     - name: Attach Data Volume {{ grafana_host_data_volume_name }}
       os_server_volume:
         state: present

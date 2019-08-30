@@ -23,7 +23,8 @@
 
 # We need to save grafana user uid, since it is referred
 # in the systemd unit file.
-- set_fact:
+- name: extract user id
+  set_fact:
     grafana_user_id: "{{ grafana_user.uid }}"
 
 - name: Create required directories
@@ -70,11 +71,11 @@
     group: grafana
     owner: grafana
   loop:
-    - {content: "{{grafana_ssl_cert_content}}", 
-       name: "{{grafana_ssl_cert_name}}",
+    - {content: "{{ grafana_ssl_cert_content }}",
+       name: "{{ grafana_ssl_cert_name }}",
        mode: "0644"}
-    - {content: "{{grafana_ssl_key_content}}", 
-       name: "{{grafana_ssl_key_name}}",
+    - {content: "{{ grafana_ssl_key_content }}",
+       name: "{{ grafana_ssl_key_name }}",
        mode: "0600"}
 
 - name: Write Grafana Systemd unit file
