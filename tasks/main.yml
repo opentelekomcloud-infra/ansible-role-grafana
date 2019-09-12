@@ -1,23 +1,31 @@
 ---
 # tasks file for roles/grafana
 
-- name: Install podman
+- name: Include Fedora variables
+  include_vars: fedora.yml
+  when: ansible_distribution == "Fedora"
+
+- name: Install required packages
   become: true
   package:
-    name: podman
     state: present
+    name: "{{ item }}"
+  with_items: "{{ packages }}"
+  register: task_result
+  until: task_result is success
+  retries: 5
 
 - name: Create Grafana group
   become: true
   group:
-    name: grafana
+    name: "{{ grafana_os_user }}"
     state: present
 
 - name: Create Grafana user
   become: true
   user:
-    name: grafana
-    group: grafana
+    name: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
   register:
     grafana_user
 
@@ -33,8 +41,8 @@
     path: "{{ item }}"
     state: directory
     recurse: yes
-    owner: grafana
-    group: grafana
+    owner: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
   loop:
     - /etc/grafana
     - /etc/grafana/provisioning
@@ -45,16 +53,16 @@
   file:
     path: /var/lib/grafana
     mode: 0775
-    group: grafana
-    owner: grafana
+    owner: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
 
 - name: Write Grafana config env file
   become: true
   template:
     src: env
     dest: /etc/grafana/env
-    group: grafana
-    owner: grafana
+    owner: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
     mode: 0770
 
     # - name: Write Grafana custom config file
@@ -62,40 +70,40 @@
     #     src: custom.ini
     #     dest: /etc/grafana/custom.ini
 
+
 - name: Write SSL Cert
   become: true
   copy:
     content: "{{ item.content }}"
-    dest: "{{ ('/etc/ssl/' + item.name) }}"
-    mode: "{{ item.mode }}"
-    group: grafana
-    owner: grafana
+    dest: "{{ item.location }}"
+  when: grafana_enable_ssl and item.content
   loop:
     - {content: "{{ grafana_ssl_cert_content }}",
-       name: "{{ grafana_ssl_cert_name }}",
-       mode: "0644"}
+       location: "{{ grafana_ssl_cert_location }}"}
     - {content: "{{ grafana_ssl_key_content }}",
-       name: "{{ grafana_ssl_key_name }}",
-       mode: "0600"}
+       location: "{{ grafana_ssl_key_location }}"}
+
+
+- name: Set ssl cert permission
+  become: true
+  file:
+    path: "{{ item.location }}"
+    owner: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
+    mode: "{{ item.mode }}"
+  when: grafana_enable_ssl
+  loop:
+    - {location: "{{ grafana_ssl_cert_location }}",
+       mode: '0644'}
+    - {location: "{{ grafana_ssl_key_location }}",
+       mode: '0600'}
+
+- include_tasks: firewall.yml
 
 - name: Write Grafana Systemd unit file
   become: true
   template:
     src: grafana-service.service
     dest: "{{ grafana_systemd_unit_path }}"
-
-- name: Enable Grafana Systemd service
-  become: true
-  systemd:
-    name: "{{ grafana_systemd_service_name }}"
-    enabled: true
-    state: "restarted"
-    daemon_reload: true
-
-- name: Enable Firewalld port 3000
-  become: true
-  firewalld:
-    port: 3000/tcp
-    permanent: yes
-    state: enabled
-    immediate: yes
+  notify:
+    - restart grafana

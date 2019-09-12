@@ -1,2 +1,10 @@
 ---
 # handlers file for roles/grafana
+
+- name: restart grafana
+  become: true
+  systemd:
+    name: "{{ grafana_systemd_service_name }}"
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

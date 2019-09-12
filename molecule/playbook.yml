@@ -1,0 +1,54 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    grafana_ssl_cert_content: |
+      -----BEGIN CERTIFICATE-----
+      MIIDBzCCAe+gAwIBAgIJAN4lEoMkkMpCMA0GCSqGSIb3DQEBBQUAMBoxGDAWBgNV
+      BAMMD3d3dy5leGFtcGxlLmNvbTAeFw0xOTA5MTIxMzIwMDRaFw0yOTA5MDkxMzIw
+      MDRaMBoxGDAWBgNVBAMMD3d3dy5leGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEB
+      BQADggEPADCCAQoCggEBAKnMV0Vm9IIte3Lqigrlgy4I5+Z1X/ukpovSc+f3GTfE
+      8dsQ26X4iBn3DvxpiGfTeEhs7KMrLXXXWd3MqXjK0LgSseNe7zdi3DQrOfI0a3CA
+      9oTuxLrKt0N/X1JOXHKukZyejJPiQ5feFEW2hDwWd2kDyeEEtliFXHQoCztDgZ1+
+      xFUmVXlSO06qRQTocVg/tnkgcrARSfic5a9gDRs16Y+BYm0Flt+0qccpkZ0SO/+3
+      v/W8njHB4Vyeuz9R7cL05amadmRDJndCRNU4n9uIkjhJSqQjoQgPD2Ree8pA3O3h
+      VmN2ISzE5o4Kl1lwxyoS4FUPaXQq5QVBE6/0ol8O0AsCAwEAAaNQME4wHQYDVR0O
+      BBYEFMvptdotfR5leOkHleZJW6TI8EfwMB8GA1UdIwQYMBaAFMvptdotfR5leOkH
+      leZJW6TI8EfwMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADggEBAE5nDczo
+      bK80DLvI8FuV0/QI61DWM9jiDmXKxPAan6B01n98iII9QBcD8XB1HIr5pFKeDivQ
+      gD4BwwxxclLgmalFtb9gJgVfbcQN6zx1UkoUXh0nbygMiK+xqhgxo0nyObji7/fN
+      gNHZ4qYfnY1GetSIJIO6/ojvideKMmrNKRKGcbxwsxojNzcWhZVVntas1OKFjH6L
+      JhLawTNxT8HmLrV6VtW3HsvuEYd3EOgmKXXqs/xJvGe/t1wH0hF0wSSaDladan8l
+      EKsngoM0ahZceoFzwC2Xb1pu8tULJfDrgheSKt14RzYfsEpZgGOJExZ9g6vCRqPo
+      YiT5qzbDwzPSIT4=
+      -----END CERTIFICATE-----
+    grafana_ssl_key_content: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEAqcxXRWb0gi17cuqKCuWDLgjn5nVf+6Smi9Jz5/cZN8Tx2xDb
+      pfiIGfcO/GmIZ9N4SGzsoystdddZ3cypeMrQuBKx417vN2LcNCs58jRrcID2hO7E
+      usq3Q39fUk5ccq6RnJ6Mk+JDl94URbaEPBZ3aQPJ4QS2WIVcdCgLO0OBnX7EVSZV
+      eVI7TqpFBOhxWD+2eSBysBFJ+Jzlr2ANGzXpj4FibQWW37SpxymRnRI7/7e/9bye
+      McHhXJ67P1HtwvTlqZp2ZEMmd0JE1Tif24iSOElKpCOhCA8PZF57ykDc7eFWY3Yh
+      LMTmjgqXWXDHKhLgVQ9pdCrlBUETr/SiXw7QCwIDAQABAoIBAQCZdHiG25YstCg2
+      Yithz6zvhNL4X6ngRhzSjt97i8D5uv8Nib3I0MVIGhUsH8BMfTzez7pJePM75eVs
+      49NhvIJHaXXlVF4Dg1AZwds7vw4+ff7NgvC/FAfuc4XVX8aDSquEjXHlEP8fmHBf
+      1KTLnU5L1UW1HEoj1FsLC0mjRM42Y+qqJZiXTlvzZp1WVkwt4m5Q7ZHFcJ5ZGI1K
+      pxiPAwFofm+puta4NcgJfN0M0cBjm9scjQES7OSUlRJLE96BbJ4I0XSxdjZxuW+P
+      xcqpVKv+7lJ/1PrI7DSAu6T+QlBngXvMH+A5ipItYqYG7VyYYj/vX3te3jZUF+4U
+      veUmhBoZAoGBANkKp5NWzyXGeBxWYZNqiM9CdE0Ir3jMKKpl9uSCiuA8CyQHAl6S
+      0wKzC+eMsHz3PcrfA/prFHYSUWPX/mZcv2JoTIFCtplgahWgJnHhdsEeJwlx0XTT
+      7sV3WZGNXN+T5NKhugP589oZkyvb68HK6BOF/WnaurLaXc66UjcnWVovAoGBAMhG
+      yjZVXO9pQ4bUCVkIazLoJad+Ll7q1sskUxambFqdrd6v0zcuP3BsULUOhi1dUfyf
+      +yfjk2od6ztwNBHBk1z2eNcb/tJxkos0X6UG9Px8XPy+v1cehhZ/BdCwkIH3W8Hs
+      vgBYkVCJ3dHgZ9xyJHDRD6BsQFtfxwpQGkhg/BzlAoGADSySY2UficF0RPQRVCth
+      RoNYH9zpGcH6re0mgVRTLa03V+Z9BFSRLlbD4Dgv9kXjoE7NJQQe59PQ0Oipbnku
+      vMBr9GSiRMkPZ2SjMMJovOwhnnckKZ07nwzRiP41pvSJLSfX7KndXV20CzN8KfUx
+      BQ5bBXPbZUPP8d5pYyOmTs0CgYAfOCm9XoEmMNp94f+zCUTsopN8EIdZ9HGXKQpq
+      tXaeiYXY+L+MEoGBHOFX1/PCjpGBN88G4MrR9+f7U/pJ6kr2atVbctm+JEYbvQZL
+      y1HVKe202GcrRW7Rgut9JIjiOZTsHeNgWm4Mh/E0Di8ihgh4LZ6p+zXtCHkWenYe
+      Yj/qoQKBgQDIVQ3BZjLpR8ahNqjkpMYpdluRROLbgY8Jq/LvC/7V5ghT1+BTsI4b
+      9wh4ub4LDNYceZfv0rHs2+rt3lNpYOOsFSNY/JuCeJSnQd0lXTSiMaG1r25TzMwZ
+      UyzsuSr++k5weh7Kq8l1VzuO5kJsCqUoTQMAgQ8paDSKXieJ0e8lkQ==
+      -----END RSA PRIVATE KEY-----
+  roles:
+    - role: ansible-role-grafana

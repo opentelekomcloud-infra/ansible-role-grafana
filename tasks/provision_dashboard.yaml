@@ -4,7 +4,8 @@
     suffix: grafana_dashboard
   register: temp_dir
 
-- set_fact:
+- name: Generate destination
+  set_fact:
     dashboard_dest: "{{ (temp_dir.path + '/dashboard.json') }}"
 
 - name: Generate dashboard json

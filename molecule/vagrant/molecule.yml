@@ -1,0 +1,24 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    box: generic/fedora30
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: prepare.yml
+    converge: ../playbook.yml
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  directory: ../tests

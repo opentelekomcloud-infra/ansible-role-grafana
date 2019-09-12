@@ -1,0 +1,4 @@
+*.pyc
+**/pytest*log
+**/*.swo
+**/*.swp

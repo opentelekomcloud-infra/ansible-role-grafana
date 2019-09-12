@@ -7,10 +7,10 @@ Type=simple
 TimeoutStartSec=30s
 Restart=always
 TimeoutStopSec=10s
-User=grafana
-Group=grafana
+User={{ grafana_os_user }}
+Group={{ grafana_os_group }}
 
-Environment=GRAFANA_IMAGE=grafana/grafana:6.2.4
+Environment=GRAFANA_IMAGE=grafana/grafana:6.3.5
 # Kind-a hack, since we need to have same user id in the container as outside
 # due to volumes ownership
 Environment=ID={{ grafana_user_id }}
@@ -25,8 +25,10 @@ ExecStart=/usr/bin/podman run \
     --env-file /etc/grafana/env \
     -p 3000:3000 \
     -v /etc/grafana/provisioning:/etc/grafana/provisioning:Z \
-    -v /etc/ssl/{{grafana_ssl_cert_name}}:/etc/ssl/grafana.crt:ro \
-    -v /etc/ssl/{{grafana_ssl_key_name}}:/etc/ssl/grafana.key:ro \
+{% if grafana_enable_ssl %}
+    -v {{grafana_ssl_cert_location}}:/etc/ssl/grafana.cert:z,ro \
+    -v {{grafana_ssl_key_location}}:/etc/ssl/grafana.key:z,ro \
+{% endif %}
     -v /var/lib/grafana:/var/lib/grafana:Z \
     ${GRAFANA_IMAGE}
 

@@ -3,8 +3,23 @@
 grafana_systemd_service_name: "grafana-service.service"
 grafana_systemd_unit_path: "{{ '/etc/systemd/system/' + grafana_systemd_service_name }}"
 grafana_security_admin_password: "foobar"
-grafana_image_tag: "6.2.4"
+grafana_image_tag: "6.3.5"
 grafana_users_allow_sign_up: false
+
+grafana_os_user: grafana
+grafana_os_group: grafana
+
+grafana_enable_ssl: true
+grafana_ssl_cert_name: grafana.cert
+grafana_ssl_cert_location: "/etc/ssl/certs/{{ grafana_ssl_cert_name }}"
+grafana_ssl_cert_content:
+grafana_ssl_key_name: grafana.key
+grafana_ssl_key_location: "/etc/ssl/certs/{{ grafana_ssl_key_name }}"
+grafana_ssl_key_content:
+
+grafana_auth_github_enable: false
+
+packages: []
 
 # Infra defaults
 grafana_host_state: "present"
