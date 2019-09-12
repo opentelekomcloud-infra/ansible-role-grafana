@@ -1,4 +1,7 @@
 GRAFANA_IMAGE=grafana/grafana:{{ grafana_image_tag }}
+{% if grafana_server_root_url is defined and grafana_server_root_url|length %}
+GF_SERVER_ROOT_URL={{ grafana_server_root_url }}
+{% endif %}
 GF_SERVER_ENABLE_GZIP=true
 {% if grafana_enable_ssl %}
 GF_SERVER_CERT_FILE=/etc/ssl/grafana.cert
@@ -36,11 +39,11 @@ GF_AUTH_GITHUB_ENABLED=true
 GF_AUTH_GITHUB_ALLOW_SIGN_UP=true
 GF_AUTH_GITHUB_CLIENT_ID={{ grafana_auth_github_client_id }}
 GF_AUTH_GITHUB_CLIENT_SECRET={{ grafana_auth_github_client_secret }}
-scopes=user:email,read:org
-auth_url=https://github.com/login/oauth/authorize
-token_url=https://github.com/login/oauth/access_token
-api_url=https://api.github.com/user
+GF_AUTH_GITHUB_SCOPES=user:email,read:org
+GF_AUTH_GITHUB_AUTH_URL=https://github.com/login/oauth/authorize
+GF_AUTH_GITHUB_TOKEN_URL=https://github.com/login/oauth/access_token
+GF_AUTH_GITHUB_API_URL=https://api.github.com/user
 {% if grafana_auth_github_allowed_orgs %}
-allowed_organizations={{ grafana_auth_github_allowed_orgs }}
+GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS={{ grafana_auth_github_allowed_orgs }}
 {% endif %}
 {% endif %}
