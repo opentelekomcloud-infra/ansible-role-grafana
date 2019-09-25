@@ -47,3 +47,14 @@ GF_AUTH_GITHUB_API_URL=https://api.github.com/user
 GF_AUTH_GITHUB_ALLOWED_ORGANIZATIONS={{ grafana_auth_github_allowed_orgs }}
 {% endif %}
 {% endif %}
+
+{% if grafana_smtp_enable is defined and grafana_smtp_enable %}
+GF_SMTP_ENABLED=true
+GF_SMTP_HOST={{ grafana_smtp_host }}
+{% if grafana_smtp_from_address is defined and grafana_smtp_from_address|length %}
+GF_SMTP_FROM_ADDRESS={{ grafana_smtp_from_address }}
+{% endif %}
+{% if grafana_smtp_from_name is defined and grafana_smtp_from_name|length %}
+GF_SMTP_FROM_NAME={{ grafana_smtp_from_name }}
+{% endif %}
+{% endif %}
