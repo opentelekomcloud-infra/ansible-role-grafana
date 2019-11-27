@@ -101,7 +101,7 @@
 - name: Install Grafana plugins
   become: true
   become_user: "{{ grafana_os_user }}"
-  command: "podman exec grafana-cli plugins install {{ item }}"
+  command: "podman exec grafana grafana-cli plugins install {{ item }}"
   loop: "{{ grafana_plugins }}"
   notify:
     - restart grafana
