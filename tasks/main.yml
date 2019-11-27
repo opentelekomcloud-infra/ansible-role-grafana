@@ -29,32 +29,19 @@
   register:
     grafana_user
 
-# We need to save grafana user uid, since it is referred
-# in the systemd unit file.
-- name: extract user id
-  set_fact:
-    grafana_user_id: "{{ grafana_user.uid }}"
-
 - name: Create required directories
   become: true
   file:
-    path: "{{ item }}"
+    path: "{{ item.dest }}"
     state: directory
     recurse: yes
     owner: "{{ grafana_os_user }}"
     group: "{{ grafana_os_group }}"
+    mode: "{{ item.mode | default(omit) }}"
   loop:
-    - /etc/grafana
-    - /etc/grafana/provisioning
-    - /var/lib/grafana
-
-- name: /var/lib/grafana privs
-  become: true
-  file:
-    path: /var/lib/grafana
-    mode: 0775
-    owner: "{{ grafana_os_user }}"
-    group: "{{ grafana_os_group }}"
+    - {dest: "/etc/grafana"}
+    - {dest: "/etc/grafana/provisioning"}
+    - {dest: "/var/lib/grafana", mode: "0777"}
 
 - name: Write Grafana config env file
   become: true
@@ -103,7 +90,18 @@
 - name: Write Grafana Systemd unit file
   become: true
   template:
-    src: grafana-service.service
+    src: "grafana.service.j2"
     dest: "{{ grafana_systemd_unit_path }}"
+  notify:
+    - restart grafana
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers
+
+- name: Install Grafana plugins
+  become: true
+  become_user: "{{ grafana_os_user }}"
+  command: "podman exec grafana-cli plugins install {{ item }}"
+  loop: "{{ grafana_plugins }}"
   notify:
     - restart grafana

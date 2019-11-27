@@ -1,9 +1,9 @@
 ---
 # defaults file for roles/grafana
-grafana_systemd_service_name: "grafana-service.service"
+grafana_systemd_service_name: "grafana.service"
 grafana_systemd_unit_path: "{{ '/etc/systemd/system/' + grafana_systemd_service_name }}"
 grafana_security_admin_password: "foobar"
-grafana_image_tag: "6.3.5"
+grafana_image_tag: "6.5.0"
 grafana_users_allow_sign_up: false
 
 grafana_os_user: grafana
@@ -19,11 +19,13 @@ grafana_ssl_key_content:
 
 grafana_auth_github_enable: false
 
+grafana_plugins: []
+
 packages: []
 
 # Infra defaults
 grafana_host_state: "present"
-grafana_host_image: "Standard_Fedora_29_latest"
+grafana_host_image: "Standard_Fedora_30_latest"
 grafana_host_flavor: "s2.xlarge.2"
 grafana_host_server_name: "{{ ('grafana.' + domain_name) | default('grafana') }}"
 grafana_host_availability_zone: "eu-de-03"

@@ -10,10 +10,7 @@ TimeoutStopSec=10s
 User={{ grafana_os_user }}
 Group={{ grafana_os_group }}
 
-Environment=GRAFANA_IMAGE=grafana/grafana:6.3.5
-# Kind-a hack, since we need to have same user id in the container as outside
-# due to volumes ownership
-Environment=ID={{ grafana_user_id }}
+Environment=GRAFANA_IMAGE=grafana/grafana:6.5.0
 EnvironmentFile=/etc/grafana/env
 
 ExecStartPre=-/usr/bin/podman system migrate
@@ -21,7 +18,6 @@ ExecStartPre=-/usr/bin/podman rm "grafana"
 
 ExecStart=/usr/bin/podman run \
     --name "grafana" \
-    --userns keep-id \
     --env-file /etc/grafana/env \
     -p 3000:3000 \
     -v /etc/grafana/provisioning:/etc/grafana/provisioning:Z \
