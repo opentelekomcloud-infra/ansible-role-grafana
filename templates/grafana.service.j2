@@ -4,9 +4,8 @@ Wants=syslog.service
 
 [Service]
 Type=simple
-TimeoutStartSec=30s
+TimeoutSec=30s
 Restart=always
-TimeoutStopSec=10s
 User={{ grafana_os_user }}
 Group={{ grafana_os_group }}
 
