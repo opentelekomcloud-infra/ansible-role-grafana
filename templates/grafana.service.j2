@@ -24,6 +24,9 @@ ExecStart=/usr/bin/podman run \
     -v {{grafana_ssl_cert_location}}:/etc/ssl/grafana.cert:z,ro \
     -v {{grafana_ssl_key_location}}:/etc/ssl/grafana.key:z,ro \
 {% endif %}
+{% if grafana_auth_ldap_enable %}
+    -v /etc/grafana/ldap:/etc/grafana/ldap:Z \
+{% endif %}
     -v /var/lib/grafana:/var/lib/grafana:Z \
     ${GRAFANA_IMAGE}
 
