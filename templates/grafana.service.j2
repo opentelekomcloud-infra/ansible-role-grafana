@@ -17,6 +17,11 @@ ExecStartPre=-/usr/bin/podman rm "grafana"
 
 ExecStart=/usr/bin/podman run \
     --name "grafana" \
+{% if grafana_auth_ldap_enable %}
+{% for item in grafana_auth_ldap_hosts_entries %}
+    --add-host={{ item }} \
+{% endfor %}
+{% endif %}
     --env-file /etc/grafana/env \
     -p 3000:3000 \
     -v /etc/grafana/provisioning:/etc/grafana/provisioning:Z \
