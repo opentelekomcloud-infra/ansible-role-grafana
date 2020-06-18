@@ -41,6 +41,7 @@
   loop:
     - {dest: "/etc/grafana"}
     - {dest: "/etc/grafana/provisioning"}
+    - {dest: "/etc/grafana/ldap"}
     - {dest: "/var/lib/grafana", mode: "0777"}
 
 - name: Write Grafana config env file
@@ -52,11 +53,25 @@
     group: "{{ grafana_os_group }}"
     mode: 0770
 
-    # - name: Write Grafana custom config file
-    #   template:
-    #     src: custom.ini
-    #     dest: /etc/grafana/custom.ini
+- name: Write Grafana ldap conf file
+  become: true
+  template:
+    src: ldap.toml
+    dest: /etc/grafana/ldap/ldap.toml
+    owner: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
+    mode: 0770
+  when: grafana_auth_ldap_enable
 
+- name: Write Grafana ldap root CA file
+  become: true
+  template:
+    src: ldap-certificate.crt
+    dest: /etc/grafana/ldap/ldap-certificate.crt
+    owner: "{{ grafana_os_user }}"
+    group: "{{ grafana_os_group }}"
+    mode: 0770
+  when: grafana_auth_ldap_enable
 
 - name: Write SSL Cert
   become: true
