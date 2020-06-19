@@ -60,7 +60,7 @@
     dest: /etc/grafana/ldap/ldap.toml
     owner: "{{ grafana_os_user }}"
     group: "{{ grafana_os_group }}"
-    mode: 0770
+    mode: 0664
   when: grafana_auth_ldap_enable
 
 - name: Write Grafana ldap root CA file
@@ -70,7 +70,7 @@
     dest: /etc/grafana/ldap/ldap-certificate.crt
     owner: "{{ grafana_os_user }}"
     group: "{{ grafana_os_group }}"
-    mode: 0770
+    mode: 0664
   when: grafana_auth_ldap_enable
 
 - name: Write SSL Cert
