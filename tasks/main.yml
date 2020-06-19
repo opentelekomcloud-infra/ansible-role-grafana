@@ -114,6 +114,7 @@
   meta: flush_handlers
 
 - name: Make sure the Grafana service started
+  become: true
   systemd:
     state: started
     name: "{{ grafana_systemd_service_name }}"
