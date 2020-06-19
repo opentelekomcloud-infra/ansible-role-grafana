@@ -113,6 +113,11 @@
 - name: Force all notified handlers to run at this point, not waiting for normal sync points
   meta: flush_handlers
 
+- name: Make sure the Grafana service started
+  systemd:
+    state: started
+    name: "{{ grafana_systemd_service_name }}"
+
 - name: Install Grafana plugins
   become: true
   become_user: "{{ grafana_os_user }}"
