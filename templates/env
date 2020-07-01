@@ -34,9 +34,9 @@ GF_DATABASE_NAME={{ grafana_db_name }}
 {% endif %}
 {% if grafana_db_user is defined and grafana_db_user|length %}
 GF_DATABASE_USER={{ grafana_db_user }}
-{% endif %}
-{% if grafana_db_password is defined and grafana_db_user|length %}
+{% if grafana_db_password is defined and grafana_db_password|length %}
 GF_DATABASE_PASSWORD={{ grafana_db_password }}
+{% endif %}
 {% endif %}
 {% if grafana_db_ssl_mode is defined and grafana_db_user|length %}
 GF_DATABASE_SSL_MODE={{ grafana_db_ssl_mode }}
