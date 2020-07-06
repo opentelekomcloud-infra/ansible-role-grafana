@@ -1,6 +1,7 @@
 ---
 # defaults file for roles/grafana
 grafana_systemd_service_name: "grafana.service"
+grafana_image_renderer_systemd_service_name: "grafana-image-renderer.service"
 grafana_systemd_unit_path: "{{ '/etc/systemd/system/' + grafana_systemd_service_name }}"
 grafana_security_admin_password: "foobar"
 grafana_image_tag: "6.5.0"

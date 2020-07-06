@@ -67,9 +67,12 @@ GF_SMTP_FROM_NAME={{ grafana_smtp_from_name }}
 {% endif %}
 {% endif %}
 
-
 {% if grafana_auth_ldap_enable is defined and grafana_auth_ldap_enable %}
 GF_AUTH_LDAP_ENABLED=true
 GF_AUTH_LDAP_ALLOW_SIGN_UP=true
 GF_AUTH_LDAP_CONFIG_FILE=/etc/grafana/ldap/ldap.toml
 {% endif %}
+
+GF_RENDERING_SERVER_URL=http://renderer:8081/render
+GF_RENDERING_CALLBACK_URL=http://grafana:3000/
+GF_LOG_FILTERS=rendering:debug
