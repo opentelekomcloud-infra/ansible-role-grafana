@@ -73,6 +73,6 @@ GF_AUTH_LDAP_ALLOW_SIGN_UP=true
 GF_AUTH_LDAP_CONFIG_FILE=/etc/grafana/ldap/ldap.toml
 {% endif %}
 
-GF_RENDERING_SERVER_URL=http://renderer:8081/render
-GF_RENDERING_CALLBACK_URL=http://grafana:3000/
+GF_RENDERING_SERVER_URL=http://{{ grafana_renderer_host }}:8081/render
+GF_RENDERING_CALLBACK_URL=http://{{ grafana_grafana_host }}:3000/
 GF_LOG_FILTERS=rendering:debug

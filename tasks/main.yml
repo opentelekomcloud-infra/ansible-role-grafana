@@ -105,8 +105,9 @@
 - name: Write Grafana Image Renderer Systemd unit file
   become: true
   template:
-    src: "grafana-image-renderer.service.j2"
+    src: "grafana-renderer.service.j2"
     dest: "{{ grafana_systemd_unit_path }}"
+  when: grafana_enable_renderer
   notify:
     - restart grafana-image-renderer
 
