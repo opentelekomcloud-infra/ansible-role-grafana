@@ -22,6 +22,11 @@ ExecStart=/usr/bin/podman run \
     --add-host={{ item }} \
 {% endfor %}
 {% endif %}
+{% if grafana_renderer_hosts_entries is defined and grafana_renderer_hosts_entries|length %}
+{% for item in grafana_renderer_hosts_entries %}
+    --add-host={{ item }} \
+{% endfor %}
+{% endif %}
     --env-file /etc/grafana/env \
     -p 3000:3000 \
     -v /etc/grafana/provisioning:/etc/grafana/provisioning:Z \
