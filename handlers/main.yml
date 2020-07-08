@@ -9,10 +9,10 @@
     enabled: yes
     daemon_reload: yes
 
-- name: restart grafana-image-renderer
+- name: restart grafana-renderer
   become: true
   systemd:
-    name: "{{ grafana_image_renderer_systemd_service_name }}"
+    name: "{{ grafana_renderer_systemd_service_name }}"
     state: restarted
     enabled: yes
     daemon_reload: yes

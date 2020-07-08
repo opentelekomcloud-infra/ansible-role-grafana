@@ -109,7 +109,7 @@
     dest: "{{ grafana_systemd_unit_path }}"
   when: grafana_enable_renderer
   notify:
-    - restart grafana-image-renderer
+    - restart grafana-renderer
 
 - name: Write Grafana Systemd unit file
   become: true
