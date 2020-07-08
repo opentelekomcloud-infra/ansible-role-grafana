@@ -20,7 +20,7 @@ ExecStartPre=-/usr/bin/podman system migrate
 ExecStartPre=-/usr/bin/podman rm "grafana-renderer"
 
 ExecStart=/usr/bin/podman run \
-    --name "grafana-image-renderer" \
+    --name "grafana-renderer" \
 {% if grafana_renderer_hosts_entries is defined and grafana_renderer_hosts_entries|length %}
 {% for item in grafana_renderer_hosts_entries %}
     --add-host={{ item }} \
