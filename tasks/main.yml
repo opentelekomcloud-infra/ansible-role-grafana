@@ -106,7 +106,7 @@
   become: true
   template:
     src: "grafana-renderer.service.j2"
-    dest: "{{ grafana_systemd_unit_path }}"
+    dest: "{{ grafana_renderer_systemd_unit_path }}"
   when: grafana_enable_renderer
   notify:
     - restart grafana-renderer

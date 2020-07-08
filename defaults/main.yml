@@ -8,6 +8,7 @@ grafana_users_allow_sign_up: false
 
 grafana_enable_renderer: false
 grafana_renderer_systemd_service_name: "grafana-renderer.service"
+grafana_renderer_systemd_unit_path: "{{ '/etc/systemd/system/' + grafana_renderer_systemd_service_name }}"
 grafana_renderer_hosts_entries: ["renderer:1.2.3.4","grafana:2.3.4.5"]
 grafana_renderer_image_tag: "2.0.0"
 grafana_renderer_host: renderer
