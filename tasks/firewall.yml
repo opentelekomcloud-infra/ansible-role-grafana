@@ -15,3 +15,12 @@
     state: enabled
     permanent: true
     immediate: true
+
+- name: Enable Firewall port 8081
+  become: true
+  firewalld:
+    port: 8081/tcp
+    state: enabled
+    permanent: true
+    immediate: true
+  when: grafana_enable_renderer
